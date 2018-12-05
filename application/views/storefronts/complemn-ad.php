@@ -43,7 +43,7 @@
 											?>
 											
 										</select>
-										Please upload image in proper size mentioned.
+										Please upload image in proper size as mentioned.
 									</div>
 								</div>               
 								<div class="col-sm-6">
