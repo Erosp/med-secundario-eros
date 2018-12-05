@@ -51,7 +51,7 @@
                         <div class="col-sm-4 option-content-partner option-inactive" id="Requirements">Requirements</div>
                         <div class="col-sm-4 option-content-partner option-inactive" id="Application">Application</div>
                     </div>
-                </div>
+                </div> 
                 <div class="panel-body medconnex-panelbody" style="padding-top: 0px;"> <!-- class="panel-body medconnex-panelbody" -->
                     <div class="content-partner active" id="contentPartnerMarket">
                         <div class="row">
