@@ -18,6 +18,7 @@
                                         <th>S.No </th>
                                         <th>Document Name</th>
                                         <th>File </th>
+                                        <th>Date time</th>
                                         <th>Status </th>
                                         <th>Action</th>
                                     </tr>
@@ -27,13 +28,18 @@
                                     
                                       <?php $i=1; foreach ($uploadDocuments as $row) { ?>
                                     <tr class="odd">
-                                        <td><?php echo $i++; ?></td>
+
+                                        <td>
+                                            <?php echo $i++; ?>
+                                        </td>
+
                                         <td>
                                             <?php
                                                 $link_name = explode( '.', $row->document);
                                                 echo $link_name[0];
                                             ?>
                                         </td>
+                            
                                         <td>
                                             <?php
                                             $filename = 'uploads/'.$row->document;
@@ -45,6 +51,16 @@
                                             }
                                             ?>
                                         </td>
+
+                                         <!--campo de fecha y hora-->
+                                        <td>
+                                             <?php  
+                                                $dateTime = explode('.', $row->created_at);
+                                                echo $dateTime[0];
+                                             ?>
+                                        </td>
+                                        <!--campo de fecha y hora-->
+
                                         <td class="center">
                                           <?php if($row->document_status == '1'){ ?>
                                             <span style="padding:3px;" class="btn-success">Approved</span>

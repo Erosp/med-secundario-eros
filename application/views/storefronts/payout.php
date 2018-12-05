@@ -1,3 +1,33 @@
+
+       <!--modal emergente de Payout Details-->
+
+        <div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header" style="background-color:rgb(162,136,198); color:white;">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="ts modal-title text-center" id="exampleModalLabel">Please remember</h3>
+              </div>
+
+              <div class="modal-body">
+                    <h4 class="text-center">
+                      You must update your billing method in order to begin conducting services.<br/><br/>
+                      Contact our office for funther assistance.<br/>
+                      <b>(Main office/ 415.659.8420)</b>
+                    </h4>
+              </div>
+
+              <div class="modal-footer">
+                <button style="background-color:rgb(070,190,180); color:#fff;" data-dismiss="modal" arial-label="Close" class="btn btn-block text-center">I get it</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       <!--fin modal emergente de Payout Details-->
  
          <div id="page-wrapper">
             <?php $this->load->view('storefronts_templates/new-sidebar'); ?>
@@ -108,7 +138,7 @@
                        </thead>
                        <tbody>
                          <tr>
-                           <td>Total Buyers - <?php echo count($orders);?></td> 
+                           <td>Total Transactions - <?php echo count($orders);?></td> 
                          </tr>
                        </tbody>
                        <!-- <tbody>
@@ -180,4 +210,12 @@
 
                     <!-- /.panel -->
 
-               
+        <!--script para el modal emergente de Payout Details-->
+        <script>
+          $(function(){
+             // console.log('run');
+              setTimeout(function(){
+                $('#exampleModal').modal('show');
+              }, 3000)
+          })
+        </script>
