@@ -15,7 +15,7 @@
                                 <tr>
 									<th>Category Name<i class="fa fa-sort"></i></th>
 									<th>Sub Category Name<i class="fa fa-sort"></i></th>
-									<th>Added By<i class="fa fa-sort"></i></th>
+									<!--<th>Added By<i class="fa fa-sort"></i></th>-->
 									<th>Created<i class="fa fa-sort"></i></th>
 									<th>Status/Action<i class="fa fa-sort"></i></th>
                                 </tr>
@@ -26,7 +26,7 @@
 								<tr>
 									<td><?=$subctg['maincategory_nm']?></td>
 									<td><?=$subctg['sub_category']?></td>
-									<td>
+									<!--<td>
 									<?php 
 									$usertype=$subctg['user_type'];
 									if($usertype == 1){ echo 'Driver';}
@@ -36,7 +36,7 @@
 									else if($usertype == 5){echo 'Admin'; }
 									else if($usertype == 0){echo 'User'; }
 									?>
-									</td>
+									</td>-->
 									<td><?=$subctg['date']?></td>
 									<td>
 										<?php 
