@@ -181,7 +181,7 @@ class Store_model extends CI_Model {
 
 		// $sql = "SELECT (SELECT name FROM uf_categories WHERE cp_products.product_category=uf_categories.id Limit 1) as main,"
 		// 		. " (SELECT sub_category FROM uf_categories_sub WHERE cp_products.product_sub_category =uf_categories_sub.id Limit 1) as sub ,cp_products.* FROM `cp_products` WHERE cp_products.user_id='$user_id' order by cp_products.id  desc ";
-		$sql = "SELECT uf_user.email as provideremail, uf_user.mob_number as providernumber,uf_categories.name as main, uf_categories_sub.sub_category as sub ,cp_products.* FROM cp_products join uf_categories on cp_products.product_category=uf_categories.id join uf_categories_sub on cp_products.product_sub_category =uf_categories_sub.id join uf_user  on cp_products.user_id=uf_user.id WHERE cp_products.user_id='$user_id' order by cp_products.id desc ";
+		$sql = "SELECT uf_user.email as provideremail, uf_user.mob_number as providernumber,uf_categories.name as main, uf_categories_sub.sub_category as sub ,cp_products.* FROM cp_products join uf_categories on cp_products.product_category=uf_categories.id join uf_categories_sub on cp_products.product_sub_category =uf_categories_sub.id join uf_user  on cp_products.user_id=uf_user.id WHERE cp_products.user_id='$user_id' order by cp_products.id asc ";
 		$query = $this->db->query($sql);
 		$res = $query->result_array();
 		return $res;

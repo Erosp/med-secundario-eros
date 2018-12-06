@@ -28,6 +28,7 @@
 									<td><?=$subctg['sub_category']?></td>
 									<!--<td>
 									<?php 
+									/*
 									$usertype=$subctg['user_type'];
 									if($usertype == 1){ echo 'Driver';}
 									else if($usertype == 2){echo 'Doctor';}
@@ -35,6 +36,7 @@
 									else if($usertype == 4){echo 'Sales'; }
 									else if($usertype == 5){echo 'Admin'; }
 									else if($usertype == 0){echo 'User'; }
+									*/
 									?>
 									</td>-->
 									<td><?=$subctg['date']?></td>

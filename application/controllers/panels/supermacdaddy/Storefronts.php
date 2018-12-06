@@ -8,7 +8,7 @@ class Storefronts extends CI_Controller {
 		$this->load->database();
 		$this->load->model('Store_model');
 		$this->load->model('common_model');
-		$this->load->model('Store_model');
+		//$this->load->model('Store_model');
 		$this->load->model('Dashboard_model');
 		$this->load->library('encrypt');
        $this->load->library('form_validation');

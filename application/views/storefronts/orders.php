@@ -60,17 +60,7 @@
         </div><!-- /.col-lg-12 -->
     </div><!-- /.row -->
 </div><!--/.page wrapper-->
-            <div class="row">
-                <div class="col-lg-8">
-
-                    <!-- /.panel -->
- 
-                    <!-- /.panel -->
-                  
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
+            
                    
                     <!-- /.panel -->
                    
