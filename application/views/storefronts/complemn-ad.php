@@ -43,7 +43,7 @@
 											?>
 											
 										</select>
-										Please upload image in proper size as mentioned.
+										Please upload image in proper size mentioned.
 									</div>
 								</div>               
 								<div class="col-sm-6">
@@ -58,6 +58,7 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group ">
+										<!---->
 										<?php 
 										if(!empty($checkava))
 										{?>
