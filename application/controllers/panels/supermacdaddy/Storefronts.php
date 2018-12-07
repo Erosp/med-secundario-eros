@@ -233,7 +233,13 @@ class Storefronts extends CI_Controller {
 					'amt_d_price' => $this->input->post('amt_d_price')
 				);
 				$result = $this->Store_model->add_product($data);
-				if ($result) {
+				/*condicion para validar si el usuario es erroneo se imprima un mensaje de error o alerta.*/
+				if($result == 0)
+				{
+					$this->session->set_flashdata('errormessage', 'Product added failed.'.$this->upload->display_errors());
+					redirect('panels/supermacdaddy/storefronts/products');
+				}
+				else if($result){
 					$product_name = $this->input->post('product_name');
 					$messageValue = 'The Product ' . $product_name . ' is added  is added by ';
 					$this->Store_model->notification_add($messageValue);
@@ -243,11 +249,15 @@ class Storefronts extends CI_Controller {
 					$this->session->set_flashdata('errormessage', 'Product not inserted.');
 					redirect('panels/supermacdaddy/storefronts/products');
 				}
+
 			} else {
 				$this->session->set_flashdata('errormessage', 'Product image is not upload something went wrong.'.$this->upload->display_errors());
 				redirect('panels/supermacdaddy/storefronts/products');
 			}
 		}
+
+
+		//find
 
 		if (isset($_POST['update'])) {
 			

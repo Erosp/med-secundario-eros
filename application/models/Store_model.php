@@ -225,6 +225,7 @@ class Store_model extends CI_Model {
 	}
 
 	public function add_product($data) {
+		/*validacion para que solo un storfront, doctor u odemand puedan subir productos cualquier otro tipo de usuario no tiene estos permisos*/
 		if($data['provider_type'] == 'Storefront' || $data['provider_type'] == 'Doctor' || $data['provider_type'] == 'Ondemand'){
 				$this->db->insert('cp_products', $data);
 			$productid = $this->db->insert_id();
@@ -245,10 +246,9 @@ class Store_model extends CI_Model {
 			} else {
 				return false;
 			}
-		}
-		else{
-			$error = 'no eres un usuario con permisos para registrar productos';
-			return $error;
+		}else{
+			$user_invalid = 0;
+			return $user_invalid;
 		}
 	}
 

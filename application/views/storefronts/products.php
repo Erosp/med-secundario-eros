@@ -59,7 +59,7 @@
                                     <tr class="odd gradeX">
                                         <td><?php echo $i; ?></td>
                                         <td><?php echo $sale['provider_type']; ?></td>
-                                        <td><img src="<?php  echo $imagUrl; ?>" width="80px" heigth="80px"></td> 
+                                        <td><img style="padding:5px; border:1px solid silver; border-radius:20px; max-width: 100%; heigth: auto;>" src="<?php  echo $imagUrl; ?>"></td> 
                                         <td><?php echo $sale['product_name']; ?></td>
                                         <td><?php echo $sale['happy_hour']; ?></td>
                                         <!--antes de amt_d_price se llamaba a el campo mrp-->
