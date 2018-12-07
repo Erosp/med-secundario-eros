@@ -58,7 +58,7 @@
                                     ?>
                                     <tr class="odd gradeX">
                                         <td><?php echo $i; ?></td>
-                                        <td><?php echo $sale['product_type']; ?></td>
+                                        <td><?php echo $sale['provider_type']; ?></td>
                                         <td><img src="<?php  echo $imagUrl; ?>" width="80px" heigth="80px"></td> 
                                         <td><?php echo $sale['product_name']; ?></td>
                                         <td><?php echo $sale['happy_hour']; ?></td>

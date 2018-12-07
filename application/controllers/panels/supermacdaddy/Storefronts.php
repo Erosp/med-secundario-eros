@@ -217,7 +217,7 @@ class Storefronts extends CI_Controller {
 			if ($this->upload->do_upload('image')) {
 				$data = array(
 					'user_id' => $this->session->userdata('id'),
-					'product_type' => 'Driver',
+					'provider_type' => $this->session->userdata('title'),
 					'location_id' => $this->session->userdata('id'),
 					'product_name' => $this->input->post('product_name'),
 					'product_category' => $this->input->post('product_category'),
