@@ -62,8 +62,8 @@
                                         <td>
                                             <style type="text/css">
                                                 .pic{
-                                                     width:100px;
-                                                     height:100px;
+                                                     width:80px;
+                                                     height:80px;
                                                 }
                                                 .picbig{
                                                     position: absolute;
