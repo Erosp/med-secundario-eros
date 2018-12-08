@@ -59,7 +59,27 @@
                                     <tr class="odd gradeX">
                                         <td><?php echo $i; ?></td>
                                         <td><?php echo $sale['provider_type']; ?></td>
-                                        <td><img style="padding:5px; border:1px solid silver; border-radius:20px;>" width="100" src="<?php  echo $imagUrl; ?>"></td> 
+                                        <td>
+                                            <style type="text/css">
+                                                .pic{
+                                                     width:100px;
+                                                     height:100px;
+                                                }
+                                                .picbig{
+                                                    position: absolute;
+                                                    width: 0px;
+                                                    -webkit-transition:width 0.3s linear 0s;
+                                                    transition:width 0.3s linear 0s;
+                                                    z-index: 0px;
+                                                }
+                                                .pic:hover + .picbig{
+                                                    width: 250px;
+                                                    height: 250px;
+                                                }
+                                            </style>
+                                            <img class="pic" style="padding:5px; border:1px solid silver; border-radius:20px;>" src="<?php  echo $imagUrl; ?>">
+                                            <img class="picbig" style="border-radius:20px;" src="<?php  echo $imagUrl; ?>">
+                                        </td> 
                                         <td><?php echo $sale['product_name']; ?></td>
                                         <td><?php echo $sale['happy_hour']; ?></td>
                                         <!--antes de amt_d_price se llamaba a el campo mrp-->
@@ -465,246 +485,31 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="imagenPreview"></div>
+            <div id="imagenPreview">
+            </div> 
+            <p id="text-preview">Preview of the attached file </p> 
         </div>
-                  
-		
-	  </div>
-		</div>     
-		
-            </div><br>
-           <div class="modal-footer">
-    		<div class="row">
-        		<div class="creatUserBottom">
-                    <div class="">
-                		<div class="vert-pad">
-                    		<button type="submit" name="save_product" class="btn-green">Create Product</button>
-                		</div>          
-            		</div>
-             	<div class="">
-                	<div class="vert-pad">
-                    	<button type="button" class="btn-grey" data-dismiss="modal">Cancel</button>
-                	</div>
-            	</div>
-            </div>
-            </div>
-    </div>
-</form>
-     <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>-->
-  </div>
-</div>  
 
-</div>
-</div> 
-
- <script type="text/javascript">
-    $(function(){
-        console.log('hola jquery rin');
-        function filePreview(input){
-            if(input.files && input.files[0]){
-                var reader = new FileReader();
-                reader.onload = function(e){
-                    $('#imagenPreview').html("<img src='"+e.target.result+"' />");
+        <script type="text/javascript">
+            $(function(){
+                $('#text-preview').hide();
+                console.log('hola jquery');
+                function filePreview(input){
+                    if(input.files && input.files[0]){
+                        var reader = new FileReader();
+                        reader.onload = function(e){
+                            $('#imagenPreview').html("<img style='border-radius:20px; width:100px; height:100px; ' src='"+e.target.result+"'>");
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                     $('#text-preview').show();
                 }
 
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $('#imagen').change(function(){
-            filePreview(this);
-        });
-    })();
-</script>
-
-						
-<!-- ~~~~~~ add product modal ~~~~~~~~- -->
-<div class="modal fade" id="exampleModalAdd12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header title-bar-orange">
-        <h5 style="color:#fff;width:93%;float:left;font-weight: bold;" class="modal-title" id="exampleModalLabel">Add Product</h5>
-        <button style="width:6%;float:left;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span style="color:#fff;font-size: 20px;font-weight: bold;" aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      		
-        <form name="addProduct" method="post" action="" enctype='multipart/form-data' id="img_form">
-    <div id="form-alerts">
-    </div>
-    <div class="row">
-    	<div class="">
-    	
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Product Name</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                    <input class="form-control" name="product_name" autocomplete="off" value="" placeholder="Please enter the Product Name" type="text" required="required">
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group ">
-                <label>Product Category </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					<select id="input_locale" class="form-control mainCategoryChanges" name="product_category" title="Locale" required="required">
-								<option>--Choose One--</option>
-               				 <?php  foreach($main_categories as $single) {
-                				echo ' <option value="'.$single['id'].'">'.$single['name'].'</option>';
-                 			} ?>
-                     </select>
-                </div>
-            </div>
-        </div>
-        
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label>Product Sub-Category</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					 <select id="input_locale" class="form-control product_sub_category" name="product_sub_category" title="Locale" required="required">
-                    	<option>--Choose One--</option>
-            			
-					</select>
-                </div>
-            </div>
-        </div>               
-        <div class="col-sm-6">
-            <div class="form-group ">
-                <label>Preparation Time in Hours </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                    <!--<input class="form-control" name="preparation_time" autocomplete="off" placeholder="Enter Preparation Time" type="text" required="required">-->
-					 <select name="preparation_time" class="form-control " required="required">
-						<option value="10">10 mins</option>
-						<option value="20">20 mins</option>
-						<option value="30">30 mins</option>
-						<option value="60">60 mins</option>
-					</select>
-                </div>
-            </div>
-        </div>
-                             
-        <div class="col-sm-6">
-            <div class="form-group ">
-              <label>Amount & Price</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                      <input class="form-control" name="amt_d_price"  placeholder="Enter Amont" type="text" required="required">
-                </div>
-            </div>
-        </div>
-                             
-        <div class="col-sm-6">
-			 <label>Happy Hour</label>
-			
-			 <div class="form-check">
-				<label class="form-check-label">
-					<input  name="happy_hour" id="" class="happu_hour" type="checkbox" value="0">
-					Happy Hour specials
-				</label>
-			  </div>
-        </div>
-        
-			
-			<div class="col-sm-12 display_hidden" style="padding: 0px;display:none;">
-				
-				<div class="col-sm-6">
-					 <label>Day </label>
-					<div class="form-group ">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-							<select name="happy_day" class="form-control display_disabled" style="width:100%" disabled="">
-							   <option value="Monday">Monday</option>
-							   <option value="Tuesday">Tuesday</option>
-							   <option value="Wednesday">Wednesday</option>
-							   <option value="Thursday">Thursday</option>
-							   <option value="Friday">Friday</option>
-							   <option value="Saturday">Saturday</option>
-							   <option value="Sunday">Sunday</option>
-						   </select>
-					   </div>
-				   </div>
-			   </div>
-				<div class="col-sm-6">
-					<div class="col-sm-6" style="padding-left:0px;">
-						<label>To</label>
-						<input class="form-control display_disabled" name="happy_time_to" type="time" required="" disabled="">
-					</div>
-					<div class="col-sm-6" style="padding-right:0px;">
-						<label>From</label>
-						<input class="form-control display_disabled" name="happy_time_from" type="time" required="" disabled="">
-					</div>
-					
-			   </div>
-				
-				
-			</div>
-        
-        
-		
-      
-      <div class="col-sm-12 " style="padding: 0px;">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1G</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k1" autocomplete="off" placeholder="Enter k1" type="text" required="required">
-                </div>
-            </div>
-        </div>
-      
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1/8</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k3" autocomplete="off" placeholder="Enter k3" type="text" required="required">
-                </div>
-            </div>
-        </div>
-	
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1/2</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k5" autocomplete="off" placeholder="Enter k5" type="text" required="required">
-                </div>
-            </div>
-        </div>
-       
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">Description</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="product_notes" autocomplete="off" placeholder="Enter description" type="text" required="required">
-                </div>
-            </div>
-        </div>
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">Upload Image</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input id="imagen" class="form-control" name="image" autocomplete="off" type="file" required="required">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div id="imagenPreview">
-                
-            </div>
-        </div>
+                $('#imagen').change(function(){
+                    filePreview(this);
+                })
+            });
+        </script>
                   
 		
 	  </div>
@@ -738,6 +543,7 @@
 
 </div>
 </div> 
+
 
 <!-- edit product modal  -->
 
