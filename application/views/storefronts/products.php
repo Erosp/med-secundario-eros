@@ -39,7 +39,7 @@
                                         <th>Product Price</th>
                                         <th>Category</th>
                                         <th>Sub Category</th>
-                                        <th>Date Time</th>
+                                        <th>Fecha de Carga</th>
                                         <th>Product Info</th>
                                         <th>Contact#</th>
                                         <th>Email</th>
@@ -59,14 +59,14 @@
                                     <tr class="odd gradeX">
                                         <td><?php echo $i; ?></td>
                                         <td><?php echo $sale['provider_type']; ?></td>
-                                        <td><img style="padding:5px; border:1px solid silver; border-radius:20px; max-width: 100%; heigth: auto;>" src="<?php  echo $imagUrl; ?>"></td> 
+                                        <td><img style="padding:5px; border:1px solid silver; border-radius:20px;>" width="100" src="<?php  echo $imagUrl; ?>"></td> 
                                         <td><?php echo $sale['product_name']; ?></td>
                                         <td><?php echo $sale['happy_hour']; ?></td>
                                         <!--antes de amt_d_price se llamaba a el campo mrp-->
                                         <td><?php echo '$'.$sale['amt_d_price']; ?></td>
                                         <td><?php echo $sale['main']; ?></td>
                                         <td><?php echo $sale['sub']; ?></td> 
-                                        <td><?php echo '11:05';?></td>
+                                        <td><?php echo $sale['data_time_product'];?></td>
                                         <td><?php echo $sale['product_notes']; ?></td> 
                                         <td><?php echo $sale['providernumber']; ?></td> 
                                         <td><?php echo $sale['provideremail']; ?></td>
@@ -460,9 +460,12 @@
                 <label for="input_locale">Upload Image</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="image" autocomplete="off" type="file" required="required">
+                    <input id="imagen" class="form-control" name="image" autocomplete="off" type="file" required="required">
                 </div>
             </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="imagenPreview"></div>
         </div>
                   
 		
@@ -498,9 +501,28 @@
 </div>
 </div> 
 
+ <script type="text/javascript">
+    $(function(){
+        console.log('hola jquery rin');
+        function filePreview(input){
+            if(input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#imagenPreview').html("<img src='"+e.target.result+"' />");
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $('#imagen').change(function(){
+            filePreview(this);
+        });
+    })();
+</script>
+
 						
 <!-- ~~~~~~ add product modal ~~~~~~~~- -->
-<div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalAdd12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header title-bar-orange">
@@ -511,7 +533,7 @@
       </div>
       <div class="modal-body">
       		
-        <form name="addProduct" method="post" action="" enctype='multipart/form-data'>
+        <form name="addProduct" method="post" action="" enctype='multipart/form-data' id="img_form">
     <div id="form-alerts">
     </div>
     <div class="row">
@@ -673,8 +695,14 @@
                 <label for="input_locale">Upload Image</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="image" autocomplete="off" type="file" required="required">
+                    <input id="imagen" class="form-control" name="image" autocomplete="off" type="file" required="required">
                 </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div id="imagenPreview">
+                
             </div>
         </div>
                   

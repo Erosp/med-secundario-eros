@@ -204,7 +204,7 @@ class Storefronts extends CI_Controller {
 			redirect("panels/supermacdaddy/storefronts/products");
 		}
 		if (isset($_POST['save_product'])) {
-
+			$time_reg_prodct = date("Y-m-d G:i:s");
 			$image = trim(str_replace(" ", "_", time() . $_FILES["image"]["name"]));
 			$path = 'uploads';
 			$config['upload_path'] = $path;
@@ -223,6 +223,7 @@ class Storefronts extends CI_Controller {
 					'product_category' => $this->input->post('product_category'),
 					'product_sub_category' => $this->input->post('product_sub_category'),
 					'preparation_time' => $this->input->post('preparation_time'),
+					'data_time_product' => $time_reg_prodct,
 					//                        'tax_patients'              => $this->input->post('tax_patients'),
 					'happy_hour' => !empty($this->input->post('happy_hour')) ? $this->input->post('happy_hour') : '',
 					'happy_day' => !empty($this->input->post('happy_day')) ? $this->input->post('happy_day') : '',
