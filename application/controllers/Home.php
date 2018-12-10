@@ -48,7 +48,7 @@ class Home extends CI_Controller {
 			$this->form_validation->set_rules('login_password', 'Password', 'required');
 			
 			if ($this->form_validation->run() == FALSE) {
-				$this->load->view('home', $data);
+                $this->load->view('home', $data);
 			} else {
 				$email		= $this->input->post('login_email');
 				$password	= $this->input->post('login_password');
@@ -108,8 +108,7 @@ class Home extends CI_Controller {
 			}
 		}	
 	}
-	
-	
+    	
 	public function upload_signup()
 	{		
 		$user_email = $_POST['drive_email'];
