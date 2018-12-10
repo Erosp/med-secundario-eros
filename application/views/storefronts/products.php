@@ -39,6 +39,7 @@
                                         <th>Product Price</th>
                                         <th>Category</th>
                                         <th>Sub Category</th>
+                                        <th>Date Time</th>
                                         <th>Product Info</th>
                                         <th>Contact#</th>
                                         <th>Email</th>
@@ -46,196 +47,102 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<!-- Previous Code -->
-                                   <?php 
-										//echo "<pre>"; print_r($Sales); 
-										// $i = 1;
-										// foreach($products as $sale)
-										// {
-          //                                    $imagUrl=base_url('uploads/'.$sale['image']);
-									?>
-                                    <!-- <tr class="odd gradeX">
-										<td><?php echo $i; ?></td>
-										<td><img src="<?php  echo $imagUrl; ?>" width="200px" height="200px"></td> 
-                                        <td><?php echo $sale['product_name']; ?></td>
-										<td><?php echo $sale['product_type']; ?></td>
-                                        <td><?php echo $sale['main']; ?></td>                                        
-										<td><?php echo $sale['sub'];?></td> 
-										<td><?php echo $sale['product_notes']; ?></td>  -->
-										<!-- 
-										<td><?php //echo $sale['k1']; ?></td> 
-										<td><?php //echo $sale['k2']; ?></td> 
-										<td><?php //echo $sale['k3']; ?></td>  
-										<td><?php //echo $sale['k4']; ?></td> 
-										<td><?php //echo $sale['k5']; ?></td> 
-										<td><?php //echo $sale['k6']; ?></td>  -->
-										<!-- <td class="center"><form method="post"> -->
-										<?php
-										// if($sale['status'] == 0){
-										// 	echo '<div class="btn-group">  
-												
-										// 			<button type="submit" name="" value="'.$sale['id'].'" class="btn btn-warning dropdown-toggle js-location-create" data-toggle="dropdown">
-										// 		Deactivated
-										// 		 <span class="caret"></span>
-										// 		</button>
-												
-										// 		<ul class="dropdown-menu" role="menu">
-										// 			<li>
-										// 				<form method="post">
-										// 				<button type="submit" name="deactive" value="'.$sale['id'].'"class="js-user-activate" style="padding: 1px 20px;border: none;background: transparent;">
-										// 				<i class="fa fa-bolt"></i> Activate Product
-										// 				</a>
-										// 				</form>
-										// 			</li>
-													
-										// 			<li>
-										// 				<a href="javascript:void(0);" data-id="'.$sale['id'].'" class="js-user-edit">
-										// 				<i class="fa fa-edit"></i> Edit 
-														
-										// 			</li>
-													
-										// 			<li>
-										// 				<form action="" method="post">
-										// 				<button style="padding: 1px 20px;border: none;background: transparent;" onclick="return confirm(\'Are you sure you want to delete the user \');"  type="submit" name="delete_product" value="'.$sale['id'].'"  class="js-user-delete" >
-										// 				<i class="fa fa-trash-o"></i> Delete </button>
-										// 				</form>
-										// 			</li>
-										// 		</ul>
-										// 		</div>';
-										// }else{
-										// 	echo '<div class="btn-group">
-											
-										// 		<button type="submit" name=""  value="'.$sale['id'].'" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-										// 					Active
-										// 		<span class="caret"></span>
-										// 		</button>
-												
-										// 		<ul class="dropdown-menu" role="menu">
-										// 			 <li>
-										// 				<form action="" method="post">
-										// 				<button style="padding: 1px 20px;border: none;background: transparent;" type="submit" name="active" value="'.$sale['id'].'"  class="js-user-disable">
-										// 				<i class="fa fa-minus-circle"></i>  Disable Product
-										// 				</button>
-										// 				</form>
-														
-										// 			</li> 
-										// 			<li>
-          //                                               <a href="javascript:void(0);" data-id="'.$sale['id'].'" class="js-user-edit">
-          //                                               <i class="fa fa-edit"></i> Edit 
-                                                        
-          //                                           </li>
-                                                    
-          //                                           <li>
-          //                                               <form action="" method="post">
-          //                                               <button style="padding: 1px 20px;border: none;background: transparent;" onclick="return confirm(\'Are you sure you want to delete the user \');"  type="submit" name="delete_product" value="'.$sale['id'].'"  class="js-user-delete" >
-          //                                               <i class="fa fa-trash-o"></i> Delete </button>
-          //                                               </form>
-          //                                           </li>
-										// 		</ul>
-										// 	</div>';
-										// }
-									 ?>
-											<!-- </form> -->
-										<!-- </td> -->
-									<!-- </tr> -->
-                                   <?php //$i++; } ?>
-                                   <!-- Current Code -->
-                                   <?php 
-										// echo "<pre>"; print_r($products); 
+                                	<?php 
+                                        // echo "<pre>"; print_r($products); 
           //                               exit;
-										$i = 1;
-										foreach($products as $sale)
-										{  //echo "<pre>";
+                                        $i = 1;
+                                        foreach($products as $sale)
+                                        {  //echo "<pre>";
                                             //print_r($sale);
                                             $imagUrl=base_url('uploads/'.$sale['image']);
-									?>
+                                    ?>
                                     <tr class="odd gradeX">
-										<td><?php echo $i; ?></td>
+                                        <td><?php echo $i; ?></td>
                                         <td><?php echo $sale['product_type']; ?></td>
-										<td><img src="<?php  echo $imagUrl; ?>" width="200px" height="200px"></td> 
+                                        <td><img src="<?php  echo $imagUrl; ?>" width="80px" heigth="80px"></td> 
                                         <td><?php echo $sale['product_name']; ?></td>
                                         <td><?php echo $sale['happy_hour']; ?></td>
-										<td><?php echo $sale['mrp']; ?></td>
+                                        <!--antes de amt_d_price se llamaba a el campo mrp-->
+                                        <td><?php echo '$'.$sale['amt_d_price']; ?></td>
                                         <td><?php echo $sale['main']; ?></td>
-                                       <td><?php echo $sale['sub']; ?></td> 
+                                        <td><?php echo $sale['sub']; ?></td> 
+                                        <td><?php echo '11:05';?></td>
                                         <td><?php echo $sale['product_notes']; ?></td> 
-                                        
-										<td><?php echo $sale['providernumber']; ?></td> 
-                                         <td><?php echo $sale['provideremail']; ?></td>
-									 
-										
-										
-										<td class="center"><form method="post">
-										<?php
-										if($sale['status'] == 0){
-											echo '<div class="btn-group">  
-												
-													<button type="submit" name="" value="'.$sale['id'].'" class="btn btn-warning dropdown-toggle js-location-create" data-toggle="dropdown">
-												Disable
-												 <span class="caret"></span>
-												</button>
-												
-												<ul class="dropdown-menu" role="menu">
-													<li>
-														<form method="post">
-														<button type="submit" name="deactive" value="'.$sale['id'].'"class="js-user-activate" style="padding: 1px 20px;border: none;background: transparent;">
-														<i class="fa fa-bolt"></i> Enable
-														</a>
-														</form>
-													</li>
-													
-													<li>
-														<a href="javascript:void(0);" data-id="'.$sale['id'].'" class="js-user-edit">
-														<i class="fa fa-edit"></i> Edit 
-														
-													</li>
-													
-													<li>
-														<form action="" method="post">
-														<button style="padding: 1px 20px;border: none;background: transparent;" onclick="return confirm(\'Are you sure you want to delete the user \');" type="submit" name="delete_product" value="'.$sale['id'].'"  class="js-user-delete" >
-														<i class="fa fa-trash-o"></i> Delete </button>
-														</form>
-													</li>
-												</ul>
-												</div>';
-										}else{
-											echo '<div class="btn-group">
-											
-												<button type="submit" name=""  value="'.$sale['id'].'" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-															Enable
-												<span class="caret"></span>
-												</button>
-												
-												<ul class="dropdown-menu" role="menu">
-													 <li>
-														<form action="" method="post">
-														<button style="padding: 1px 20px;border: none;background: transparent;" type="submit" name="active" value="'.$sale['id'].'"  class="js-user-disable">
-														<i class="fa fa-minus-circle"></i>  Disable 
-														</button>
-														</form>
-														
-													</li> 
-													<li>
+                                        <td><?php echo $sale['providernumber']; ?></td> 
+                                        <td><?php echo $sale['provideremail']; ?></td>
+                                        <td class="center">
+                                            <form method="post">
+                                        <?php
+                                        if($sale['status'] == 0){
+                                            echo '<div class="btn-group">  
+                                                
+                                                    <button type="submit" name="" value="'.$sale['id'].'" class="btn btn-warning dropdown-toggle js-location-create" data-toggle="dropdown">
+                                                Disable
+                                                 <span class="caret"></span>
+                                                </button>
+                                                
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li>
+                                                        <form method="post">
+                                                        <button type="submit" name="deactive" value="'.$sale['id'].'"class="js-user-activate" style="padding: 1px 20px;border: none;background: transparent;">
+                                                        <i class="fa fa-bolt"></i> Enable
+                                                        </a>
+                                                        </form>
+                                                    </li>
+                                                    
+                                                    <li>
                                                         <a href="javascript:void(0);" data-id="'.$sale['id'].'" class="js-user-edit">
                                                         <i class="fa fa-edit"></i> Edit 
                                                         
                                                     </li>
-													
-													   
+                                                    
                                                     <li>
                                                         <form action="" method="post">
                                                         <button style="padding: 1px 20px;border: none;background: transparent;" onclick="return confirm(\'Are you sure you want to delete the user \');" type="submit" name="delete_product" value="'.$sale['id'].'"  class="js-user-delete" >
                                                         <i class="fa fa-trash-o"></i> Delete </button>
                                                         </form>
                                                     </li>
-												</ul>
-											</div>';
-										}
-									 ?>
-											</form>
-										</td>
-
-									</tr>
+                                                </ul>
+                                                </div>';
+                                        }
+                                        else
+                                        {
+                                            echo '<div class="btn-group">
+                                            
+                                                <button type="submit" name=""  value="'.$sale['id'].'" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                            Enable
+                                                <span class="caret"></span>
+                                                </button>
+                                                
+                                                <ul class="dropdown-menu" role="menu">
+                                                     <li>
+                                                        <form action="" method="post">
+                                                        <button style="padding: 1px 20px;border: none;background: transparent;" type="submit" name="active" value="'.$sale['id'].'"  class="js-user-disable">
+                                                        <i class="fa fa-minus-circle"></i>  Disable 
+                                                        </button>
+                                                        </form>
+                                                        
+                                                    </li> 
+                                                    <li>
+                                                        <a href="javascript:void(0);" data-id="'.$sale['id'].'" class="js-user-edit">
+                                                        <i class="fa fa-edit"></i> Edit 
+                                                        
+                                                    </li>
+                                                    
+                                                       
+                                                    <li>
+                                                        <form action="" method="post">
+                                                        <button style="padding: 1px 20px;border: none;background: transparent;" onclick="return confirm(\'Are you sure you want to delete the user \');" type="submit" name="delete_product" value="'.$sale['id'].'"  class="js-user-delete" >
+                                                        <i class="fa fa-trash-o"></i> Delete </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>';
+                                        }
+                                     ?>
+                                        </form>
+                                    </td>
+                                    </tr>
                                    <?php $i++; } ?>
                                 </tbody>
                             </table>
@@ -388,13 +295,13 @@
     	<div class="">
     	
         <div class="col-sm-6">
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label>Upload File</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-edit"></i></span>
                     <input class="form-control" name="upload_file" type="file" required="required">
                 </div>
-            </div>
+            </div>-->
         </div>
 
 		<div class="col-sm-6">
@@ -412,7 +319,7 @@
                 <label>Product Category </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					<select id="input_locale" class="form-control mainCategoryChanges" name="product_category" title="Locale" required="required">
+					<select id="input_locale" class="form-control mainCategoryChanges" name="product_category" title="Locale" required/>
 								<option>--Choose One--</option>
                				 <?php  foreach($main_categories as $single) {
                 				echo ' <option value="'.$single['id'].'">'.$single['name'].'</option>';
@@ -427,7 +334,7 @@
                 <label>Product Sub-Category</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					 <select id="input_locale" class="form-control product_sub_category" name="product_sub_category" title="Locale" required="required">
+					 <select id="input_locale" class="form-control product_sub_category" name="product_sub_category" title="Locale" required/>
                     	<option>--Choose One--</option>
 					</select>
                 </div>

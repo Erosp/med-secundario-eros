@@ -13,9 +13,9 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr class="first-row">
-									<th>Mobile User Name</th>
-									<th>Mobile User Phone</th>
-									<th>Mobile User Email </th>
+									<th>User Name</th>
+									<th>Contact #</th>
+									<th>User Email </th>
 									<th>User Type</th>
 									<th>Registered Since</th>
 									<th>Document Link</th>
