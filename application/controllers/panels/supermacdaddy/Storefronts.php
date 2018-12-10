@@ -229,6 +229,7 @@ class Storefronts extends CI_Controller {
 					'happy_day' => !empty($this->input->post('happy_day')) ? $this->input->post('happy_day') : '',
 					'happy_time_to' => !empty($this->input->post('happy_time_to')) ? $this->input->post('happy_time_to') : '',
 					'happy_time_from' => !empty($this->input->post('happy_time_from')) ? $this->input->post('happy_time_from') : '',
+					'Happy_Price' => !empty($this->input->post('happy_price')) ? $this->input->post('happy_price') : 0,
 					'image' => $image,
 					'product_notes' => $this->input->post('product_notes'),
 					'amt_d_price' => $this->input->post('amt_d_price')
