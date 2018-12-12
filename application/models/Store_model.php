@@ -636,6 +636,25 @@ class Store_model extends CI_Model {
 		return $resultarray;
 	}
 
+	public function consul_noti($dat){
+		$id = $this->session->userdata('id');
+		$this->db->select('message');
+		$this->db->where('message', $dat['message']);
+		$this->db->select('created_at_noti');
+		$this->db->where('created_at_noti', $dat['fech']);
+		$this->db->join('uf_user', 'uf_user.id = notification_history.user_id');
+		$this->db->select('display_name');
+		$this->db->where('display_name', $dat['title']);
+		$query = $this->db->get('notification_history');
+		if($query->num_rows() > 0){
+			$result_array = $query->result_array();
+			return $result_array;
+		}else{
+			return 'no señor';
+		}
+
+	}
+
 	public function notification_historyAll() {
 		$id = $this->session->userdata('id');
 		$this->db->select('*,notification_history.id as notification_id');

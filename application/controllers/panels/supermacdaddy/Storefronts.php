@@ -1721,6 +1721,33 @@ class Storefronts extends CI_Controller {
 		}
 	}
 
+/*AQUIIIIIIIII NOTIFIACIONES STOREFRONT*/
+	/*public function resp(){
+		 $resp = $_REQUEST['num'];
+		 echo $resp;
+	}*/
+
+	public function brothers(){
+		if(isset($_POST['br1']) && !empty($_POST['br1']) &&
+			isset($_POST['br2']) && !empty($_POST['br2']) &&
+			isset($_POST['br3']) && !empty($_POST['br3']))
+		{
+			//echo $_POST['br1'].' '.$_POST['br2'].' '.$_POST['br3'];
+			$datosbro = array(
+				'title' => $_POST['br1'],
+				'message' => $_POST['br2'],
+				'fech' => $_POST['br3']
+			);
+
+			$dbro = array();
+			$dbro['contenido'] = $this->Store_model->consul_noti($datosbro);
+			$jsonstring = json_encode($dbro['contenido']);
+			echo $jsonstring;
+		}
+		
+		
+	}
+
 	public function notifications() {
 		$data['title'] = 'Dashboard :: Notifications';
 		$data['file'] = 'storefronts/notifications';
