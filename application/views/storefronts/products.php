@@ -36,10 +36,11 @@
                                         <th>Product Image</th>
                                         <th>Product Name</th>
                                         <th>Happy hour</th>
+                                        <th>Happy Price</th>
                                         <th>Product Price</th>
                                         <th>Category</th>
                                         <th>Sub Category</th>
-                                        <th>Date Time</th>
+                                        <th>Fecha de Carga</th>
                                         <th>Product Info</th>
                                         <th>Contact#</th>
                                         <th>Email</th>
@@ -58,15 +59,53 @@
                                     ?>
                                     <tr class="odd gradeX">
                                         <td><?php echo $i; ?></td>
-                                        <td><?php echo $sale['product_type']; ?></td>
-                                        <td><img src="<?php  echo $imagUrl; ?>" width="80px" heigth="80px"></td> 
+                                        <td><?php echo $sale['provider_type']; ?></td>
+                                        <td>
+                                            <style type="text/css">
+                                                .pic{
+                                                     width:80px;
+                                                     height:80px;
+                                                     cursor: pointer;
+                                                }
+                                                .picbig{
+                                                    position: absolute;
+                                                    width: 0px;
+                                                    -webkit-transition:width 0.3s linear 0s;
+                                                    transition:width 0.3s linear 0s;
+                                                    z-index: 0px;
+                                                }
+                                                .pic:hover + .picbig{
+                                                    width: 250px;
+                                                    height: 250px;
+                                                }
+                                            </style>
+                                            <img class="pic" style="padding:5px; border:1px solid silver; border-radius:20px;>" src="<?php  echo $imagUrl; ?>">
+                                            <img class="picbig" style="border-radius:20px;" src="<?php  echo $imagUrl; ?>">
+                                        </td> 
                                         <td><?php echo $sale['product_name']; ?></td>
-                                        <td><?php echo $sale['happy_hour']; ?></td>
+                                        <!--<td><?php echo $sale['happy_hour']; ?></td>-->
+                                        <!--<td><?php echo $sale['happy_time_to'].' to '. $sale['happy_time_from'];?></td>-->
+                                        <td>
+                                            <?php 
+                                                if($sale['happy_time_to'] == '00:00:00' && $sale['happy_time_from'] == '00:00:00'){
+                                                    echo '';
+                                                }else{
+                                                    echo $sale['happy_time_to'].' to '.$sale['happy_time_from'];
+                                                }
+                                            ?>
+                                        </td>
+                                        <td><?php 
+                                            if(($sale['Happy_Price']) == 0){
+                                                echo '';
+                                            }else{
+                                                echo '$'.$sale['Happy_Price'];
+                                            }
+                                         ?></td>
                                         <!--antes de amt_d_price se llamaba a el campo mrp-->
                                         <td><?php echo '$'.$sale['amt_d_price']; ?></td>
                                         <td><?php echo $sale['main']; ?></td>
                                         <td><?php echo $sale['sub']; ?></td> 
-                                        <td><?php echo '11:05';?></td>
+                                        <td><?php echo $sale['data_time_product'];?></td>
                                         <td><?php echo $sale['product_notes']; ?></td> 
                                         <td><?php echo $sale['providernumber']; ?></td> 
                                         <td><?php echo $sale['provideremail']; ?></td>
@@ -288,7 +327,7 @@
       </div>
       <div class="modal-body">
       		
-        <form name="addbulkProduct" method="post" action="" enctype='multipart/form-data'>
+        <form id="form_jquery" name="addbulkProduct" method="post" action="" enctype='multipart/form-data'>
     <div id="form-alerts">
     </div>
     <div class="row">
@@ -371,7 +410,7 @@
 			
 			 <div class="form-check">
 				<label class="form-check-label">
-					<input  name="happy_hour" id="" class="happu_hour" type="checkbox" value="0">
+					<input  name="happy_hour" id="swich_happy" class="happu_hour" type="checkbox" value="0">
 					Happy Hour specials
 				</label>
 			  </div>
@@ -381,11 +420,12 @@
 			<div class="col-sm-12 display_hidden" style="padding: 0px;display:none;">
 				
 				<div class="col-sm-6">
-					 <label>Day </label>
+					 <label id="l1">Day </label>
+                     <label id="l11" style="color:green">Day </label>
 					<div class="form-group ">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-							<select name="happy_day" class="form-control display_disabled" style="width:100%" disabled="">
+							<select name="happy_day" class="form-control display_disabled" style="width:100%" disable="">
 							   <option value="Monday">Monday</option>
 							   <option value="Tuesday">Tuesday</option>
 							   <option value="Wednesday">Wednesday</option>
@@ -397,21 +437,38 @@
 					   </div>
 				   </div>
 			   </div>
+               
 				<div class="col-sm-6">
 					<div class="col-sm-6" style="padding-left:0px;">
-						<label>To</label>
-						<input class="form-control display_disabled" name="happy_time_to" type="time" required="" disabled="">
+						<label id="l2">To</label>
+                        <label id="l22" style="color:green">To</label>
+						<input id="to" class="form-control display_disabled" name="happy_time_to" type="time" >
+                        <div id="error_message_to"></div>
 					</div>
 					<div class="col-sm-6" style="padding-right:0px;">
-						<label>From</label>
-						<input class="form-control display_disabled" name="happy_time_from" type="time" required="" disabled="">
+						<div id="blok-from">
+                            <label id="l3">From</label>
+                             <label id="l33" style="color:green">From</label>
+                            <input id="from" class="form-control display_disabled" name="happy_time_from" type="time" >
+                            <div id="error_message_from"></div>
+                        </div>
 					</div>
-					
 			   </div>
+
+               <div class="col-md-12">
+                   <div id="blok-hp">
+                        <label id="l4">Happy Price</label>
+                        <label id="l44" style="color:green">Happy Price</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                        <input id="hp" name="happy_price" class="form-control" type="text" placeholder="Enter Amont" >
+                        </div>
+                   </div>
+               </div>
 				
 				
 			</div>
-        
+            
         
 		
       
@@ -460,32 +517,63 @@
                 <label for="input_locale">Upload Image</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="image" autocomplete="off" type="file" required="required">
+                    <input id="imagen" class="form-control" name="image" autocomplete="off" type="file" required="required">
                 </div>
             </div>
         </div>
+        <div class="col-sm-6">
+            <div id="imagenPreview">
+            </div> 
+            <p id="text-preview">Preview of the attached file </p> 
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#text-preview').hide();
+                console.log('hola jquery');
+                function filePreview(input){
+                    if(input.files && input.files[0]){
+                        var reader = new FileReader();
+                        reader.onload = function(e){
+                            $('#imagenPreview').html("<img style='border-radius:20px; width:100px; height:100px; ' src='"+e.target.result+"'>");
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                     $('#text-preview').show();
+                }
+
+                $('#imagen').change(function(){
+                    filePreview(this);
+                })
+            });
+        </script>
                   
 		
 	  </div>
 		</div>     
 		
             </div><br>
-           <div class="modal-footer">
+        <div class="modal-footer">
     		<div class="row">
         		<div class="creatUserBottom">
                     <div class="">
                 		<div class="vert-pad">
-                    		<button type="submit" name="save_product" class="btn-green">Create Product</button>
+                    		<button id="btn_create_ini" type="submit" name="save_product" class="btn-green">Create Product</button>
+                            <button id="btn_create_disabled" type="submit" name="save_product" class="btn-grey" disabled>Create Product</button>
                 		</div>          
             		</div>
-             	<div class="">
-                	<div class="vert-pad">
-                    	<button type="button" class="btn-grey" data-dismiss="modal">Cancel</button>
+                 	<div class="">
+                    	<div class="vert-pad">
+                        	<button type="button" class="btn-grey" data-dismiss="modal">Cancel</button>
+                    	</div>
                 	</div>
-            	</div>
+                </div>
+                <div class="col-sm-6">
+                    <p style="color:orange;" class="text-center" id="message_valid_HH">Para enviar formulario, debes ingresar todos los datos de la hora feliz</p>
+                </div>
             </div>
-            </div>
-    </div>
+        </div>
+
 </form>
      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -497,220 +585,130 @@
 
 </div>
 </div> 
+    <!--jquery formulario-->
+    <script type="text/javascript">
+            $(function(){
+                /*funsion para manejar las validaciones del formulario*/
+                $('#l11').hide();
+                $('#l22').hide();
+                $('#l33').hide();
+                $('#l44').hide();
+                $('#btn_create_disabled').hide();
+                $('#message_valid_HH').hide();
+                $('#swich_happy').on('click', function(){
+                    if($('#swich_happy').val() == 0){
+                        /*propiedades primarias*/
+                        $('#blok-from').hide();
+                        $('#blok-hp').hide();
+                        $('#btn_create_disabled').show();
+                        $('#btn_create_ini').hide();
+                        $('#message_valid_HH').show();
 
-						
-<!-- ~~~~~~ add product modal ~~~~~~~~- -->
-<div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header title-bar-orange">
-        <h5 style="color:#fff;width:93%;float:left;font-weight: bold;" class="modal-title" id="exampleModalLabel">Add Product</h5>
-        <button style="width:6%;float:left;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span style="color:#fff;font-size: 20px;font-weight: bold;" aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      		
-        <form name="addProduct" method="post" action="" enctype='multipart/form-data'>
-    <div id="form-alerts">
-    </div>
-    <div class="row">
-    	<div class="">
-    	
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Product Name</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                    <input class="form-control" name="product_name" autocomplete="off" value="" placeholder="Please enter the Product Name" type="text" required="required">
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group ">
-                <label>Product Category </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					<select id="input_locale" class="form-control mainCategoryChanges" name="product_category" title="Locale" required="required">
-								<option>--Choose One--</option>
-               				 <?php  foreach($main_categories as $single) {
-                				echo ' <option value="'.$single['id'].'">'.$single['name'].'</option>';
-                 			} ?>
-                     </select>
-                </div>
-            </div>
-        </div>
-        
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label>Product Sub-Category</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					 <select id="input_locale" class="form-control product_sub_category" name="product_sub_category" title="Locale" required="required">
-                    	<option>--Choose One--</option>
-            			
-					</select>
-                </div>
-            </div>
-        </div>               
-        <div class="col-sm-6">
-            <div class="form-group ">
-                <label>Preparation Time in Hours </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                    <!--<input class="form-control" name="preparation_time" autocomplete="off" placeholder="Enter Preparation Time" type="text" required="required">-->
-					 <select name="preparation_time" class="form-control " required="required">
-						<option value="10">10 mins</option>
-						<option value="20">20 mins</option>
-						<option value="30">30 mins</option>
-						<option value="60">60 mins</option>
-					</select>
-                </div>
-            </div>
-        </div>
-                             
-        <div class="col-sm-6">
-            <div class="form-group ">
-              <label>Amount & Price</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                      <input class="form-control" name="amt_d_price"  placeholder="Enter Amont" type="text" required="required">
-                </div>
-            </div>
-        </div>
-                             
-        <div class="col-sm-6">
-			 <label>Happy Hour</label>
-			
-			 <div class="form-check">
-				<label class="form-check-label">
-					<input  name="happy_hour" id="" class="happu_hour" type="checkbox" value="0">
-					Happy Hour specials
-				</label>
-			  </div>
-        </div>
-        
-			
-			<div class="col-sm-12 display_hidden" style="padding: 0px;display:none;">
-				
-				<div class="col-sm-6">
-					 <label>Day </label>
-					<div class="form-group ">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-							<select name="happy_day" class="form-control display_disabled" style="width:100%" disabled="">
-							   <option value="Monday">Monday</option>
-							   <option value="Tuesday">Tuesday</option>
-							   <option value="Wednesday">Wednesday</option>
-							   <option value="Thursday">Thursday</option>
-							   <option value="Friday">Friday</option>
-							   <option value="Saturday">Saturday</option>
-							   <option value="Sunday">Sunday</option>
-						   </select>
-					   </div>
-				   </div>
-			   </div>
-				<div class="col-sm-6">
-					<div class="col-sm-6" style="padding-left:0px;">
-						<label>To</label>
-						<input class="form-control display_disabled" name="happy_time_to" type="time" required="" disabled="">
-					</div>
-					<div class="col-sm-6" style="padding-right:0px;">
-						<label>From</label>
-						<input class="form-control display_disabled" name="happy_time_from" type="time" required="" disabled="">
-					</div>
-					
-			   </div>
-				
-				
-			</div>
-        
-        
-		
-      
-      <div class="col-sm-12 " style="padding: 0px;">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1G</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k1" autocomplete="off" placeholder="Enter k1" type="text" required="required">
-                </div>
-            </div>
-        </div>
-      
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1/8</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k3" autocomplete="off" placeholder="Enter k3" type="text" required="required">
-                </div>
-            </div>
-        </div>
-	
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">1/2</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="k5" autocomplete="off" placeholder="Enter k5" type="text" required="required">
-                </div>
-            </div>
-        </div>
-       
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">Description</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="product_notes" autocomplete="off" placeholder="Enter description" type="text" required="required">
-                </div>
-            </div>
-        </div>
-         <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input_locale">Upload Image</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-language"></i></span>
-                    <input class="form-control" name="image" autocomplete="off" type="file" required="required">
-                </div>
-            </div>
-        </div>
-                  
-		
-	  </div>
-		</div>     
-		
-            </div><br>
-           <div class="modal-footer">
-    		<div class="row">
-        		<div class="creatUserBottom">
-                    <div class="">
-                		<div class="vert-pad">
-                    		<button type="submit" name="save_product" class="btn-green">Create Product</button>
-                		</div>          
-            		</div>
-             	<div class="">
-                	<div class="vert-pad">
-                    	<button type="button" class="btn-grey" data-dismiss="modal">Cancel</button>
-                	</div>
-            	</div>
-            </div>
-            </div>
-    </div>
-</form>
-     <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>-->
-  </div>
-</div>  
+                        /*nueva validacion a prueba de tontos*/
 
-</div>
-</div> 
+                        $('#to').on('change', function(){
+                            if($('#to').val() != ''){
+                                $('#blok-from').show();
+                                $('#from').on('change', function(){
+                                    if($('#from').val() != '' && $('#from').val() > $('#to').val()){
+                                         $('#error_message_from').hide();
+                                        $('#blok-hp').show();
+                                        $('#hp').on('change',function(){
+                                            if($('#hp').val() != ''){
+                                                $('#btn_create_disabled').hide();
+                                                $('#btn_create_ini').show();
+                                                $('#message_valid_HH').hide();
+                                                $('#l1').hide();
+                                                    $('#l11').show();
+                                                $('#l2').hide();
+                                                    $('#l22').show();
+                                                $('#l3').hide();
+                                                    $('#l33').show();
+                                                $('#l4').hide();
+                                                    $('#l44').show();
+                                            }
+                                            else
+                                            {
+                                                $('#btn_create_disabled').show();
+                                                $('#btn_create_ini').hide();
+                                                $('#message_valid_HH').show();
+                                                $('#l1').show();
+                                                    $('#l11').hide();
+                                                $('#l2').show();
+                                                    $('#l22').hide();
+                                                $('#l3').show();
+                                                    $('#l33').hide();
+                                                $('#l4').show();
+                                                    $('#l44').hide();
+                                            }
+                                        })
+                                    }else{
+                                        $('#blok-hp').hide();
+                                        $('#hp').val('');
+                                        $('#btn_create_disabled').show();
+                                        $('#btn_create_ini').hide();
+                                        $('#message_valid_HH').show();
+                                        $('#l1').show();
+                                            $('#l11').hide();
+                                        $('#l2').show();
+                                            $('#l22').hide();
+                                        $('#l3').show();
+                                            $('#l33').hide();
+                                        $('#l4').show();
+                                            $('#l44').hide();
+                                            let templete = `
+                                                <p class="text-center" style="color:red; font-size:10px;">El tiempo de la hora feliz solo puede durar 2horas</p>
+                                            `;
+                                            $('#error_message_from').html(templete);
+                                            $('#error_message_from').show();
+                                    }
+                                })
+                            }else{
+                                $('#blok-hp').hide();
+                                $('#hp').val('');
+                                $('#blok-from').hide();
+                                $('#from').val(0);
+                                $('#btn_create_disabled').show();
+                                $('#btn_create_ini').hide();
+                                $('#message_valid_HH').show();
+                                $('#l1').show();
+                                    $('#l11').hide();
+                                $('#l2').show();
+                                    $('#l22').hide();
+                                $('#l3').show();
+                                    $('#l33').hide();
+                                $('#l4').show();
+                                    $('#l44').hide();
+                            }
+                        })
 
+                    }
+                    else{
+                        $('#to').val(0);
+                        $('#from').val(0);
+                        $('#hp').val('');
+                        $('#btn_create_ini').show();
+                        $('#btn_create_disabled').hide();
+                        $('#message_valid_HH').hide();
+                        $('#l1').show();
+                            $('#l11').hide();
+                        $('#l2').show();
+                            $('#l22').hide();
+                        $('#l3').show();
+                            $('#l33').hide();
+                        $('#l4').show();
+                            $('#l44').hide();
+                    }
+
+                    /*validing que to, from and happy price */
+
+
+                    
+                });
+               
+            });
+    </script>
+    <!--jquery formulario-->
 <!-- edit product modal  -->
 
 <div class="modal fade" id="editproduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

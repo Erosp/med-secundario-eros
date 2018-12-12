@@ -204,7 +204,7 @@ class Storefronts extends CI_Controller {
 			redirect("panels/supermacdaddy/storefronts/products");
 		}
 		if (isset($_POST['save_product'])) {
-
+			$time_reg_prodct = date("Y-m-d G:i:s");
 			$image = trim(str_replace(" ", "_", time() . $_FILES["image"]["name"]));
 			$path = 'uploads';
 			$config['upload_path'] = $path;
@@ -217,23 +217,31 @@ class Storefronts extends CI_Controller {
 			if ($this->upload->do_upload('image')) {
 				$data = array(
 					'user_id' => $this->session->userdata('id'),
-					'product_type' => 'Driver',
+					'provider_type' => $this->session->userdata('title'),
 					'location_id' => $this->session->userdata('id'),
 					'product_name' => $this->input->post('product_name'),
 					'product_category' => $this->input->post('product_category'),
 					'product_sub_category' => $this->input->post('product_sub_category'),
 					'preparation_time' => $this->input->post('preparation_time'),
+					'data_time_product' => $time_reg_prodct,
 					//                        'tax_patients'              => $this->input->post('tax_patients'),
 					'happy_hour' => !empty($this->input->post('happy_hour')) ? $this->input->post('happy_hour') : '',
 					'happy_day' => !empty($this->input->post('happy_day')) ? $this->input->post('happy_day') : '',
 					'happy_time_to' => !empty($this->input->post('happy_time_to')) ? $this->input->post('happy_time_to') : '',
 					'happy_time_from' => !empty($this->input->post('happy_time_from')) ? $this->input->post('happy_time_from') : '',
+					'Happy_Price' => !empty($this->input->post('happy_price')) ? $this->input->post('happy_price') : 0,
 					'image' => $image,
 					'product_notes' => $this->input->post('product_notes'),
 					'amt_d_price' => $this->input->post('amt_d_price')
 				);
 				$result = $this->Store_model->add_product($data);
-				if ($result) {
+				/*condicion para validar si el usuario es erroneo se imprima un mensaje de error o alerta.*/
+				if($result == 0)
+				{
+					$this->session->set_flashdata('errormessage', 'Product added failed.'.$this->upload->display_errors());
+					redirect('panels/supermacdaddy/storefronts/products');
+				}
+				else if($result){
 					$product_name = $this->input->post('product_name');
 					$messageValue = 'The Product ' . $product_name . ' is added  is added by ';
 					$this->Store_model->notification_add($messageValue);
@@ -243,11 +251,15 @@ class Storefronts extends CI_Controller {
 					$this->session->set_flashdata('errormessage', 'Product not inserted.');
 					redirect('panels/supermacdaddy/storefronts/products');
 				}
+
 			} else {
 				$this->session->set_flashdata('errormessage', 'Product image is not upload something went wrong.'.$this->upload->display_errors());
 				redirect('panels/supermacdaddy/storefronts/products');
 			}
 		}
+
+
+		//find
 
 		if (isset($_POST['update'])) {
 			

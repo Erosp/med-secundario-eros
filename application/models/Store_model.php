@@ -225,24 +225,30 @@ class Store_model extends CI_Model {
 	}
 
 	public function add_product($data) {
-		$this->db->insert('cp_products', $data);
-		$productid = $this->db->insert_id();
-		if (!empty($productid)) {
-			$data = array(
-				'product_id' => $productid,
-				'k1' => $this->input->post('k1'),
-//				'k2' => $this->input->post('k2'),
-				'k3' => $this->input->post('k3'),
-//              'k4' => $this->input->post('k4'),
-				'k5' => $this->input->post('k5'),
-//              'k6' => $this->input->post('k6')
-			);
-			$this->db->insert('cp_product_size', $data);
+		/*validacion para que solo un storfront, doctor u odemand puedan subir productos cualquier otro tipo de usuario no tiene estos permisos*/
+		if($data['provider_type'] == 'Storefront' || $data['provider_type'] == 'Doctor' || $data['provider_type'] == 'Ondemand'){
+				$this->db->insert('cp_products', $data);
 			$productid = $this->db->insert_id();
+			if (!empty($productid)) {
+				$data = array(
+					'product_id' => $productid,
+					'k1' => $this->input->post('k1'),
+	//				'k2' => $this->input->post('k2'),
+					'k3' => $this->input->post('k3'),
+	//              'k4' => $this->input->post('k4'),
+					'k5' => $this->input->post('k5'),
+	//              'k6' => $this->input->post('k6')
+				);
+				$this->db->insert('cp_product_size', $data);
+				$productid = $this->db->insert_id();
 
-			return $productid;
-		} else {
-			return false;
+				return $productid;
+			} else {
+				return false;
+			}
+		}else{
+			$user_invalid = 0;
+			return $user_invalid;
 		}
 	}
 
