@@ -84,19 +84,18 @@
 					template += `
 						<div style="width:80%;" class="container">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-9">
 									<i style="color:orange; font-size:40px;" class="fa fa-bell fa-fw"> </i> <h3>Read Notification</h3>
 								</div>
+						
 								<div class="col-sm-3">
 									<h4 class="text-center">received time:</h4>
-								</div>
-								<div class="col-sm-3">
 									<h5 class="text-center" style="background-color:rgb(174,174,174); border-radius:20px; padding:5px;">${resultado.created_at_noti}</h5>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
-									<h4>user type: <u>${resultado.display_name}:<u></h4>
+									<h4>display name: <u>${resultado.display_name}:<u></h4>
 								</div>
 							</div>
 							<br/>
