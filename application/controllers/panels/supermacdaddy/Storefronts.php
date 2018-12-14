@@ -1591,7 +1591,7 @@ class Storefronts extends CI_Controller {
 				$height = $ad_size[1];
 
 				$this->upload_image($image, $path);
-				$this->uploadimageResize50X50($width, $height);
+				$this->uploadimageResize50X50(1080, 1920);//$width, $height);
 			}
 
 			$result = $this->Store_model->update_comp($image);

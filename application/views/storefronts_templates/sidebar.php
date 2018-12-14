@@ -14,9 +14,6 @@
                 <a <?php if($file == 'ondemand/visibility'){ ?> class="active"<?php } ?> href="<?php echo base_url();?>panels/supermacdaddy/storefronts/visibility">Visibility</a> 
             </li>
 
-             <li>
-                <a <?php if($file == 'storefronts/auth_users'){ ?> class="active"<?php } ?> href="<?php echo base_url();?>panels/supermacdaddy/storefronts/auth_user">Authorized Users</a>
-            </li>
                 <li >
                         <a <?php if($file == 'storefronts/sales_list'){ ?> class="active" <?php } ?> href="<?php echo base_url(); ?>panels/supermacdaddy/storefronts/sales"> Contractors / Staff </a>
                 </li>

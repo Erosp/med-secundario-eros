@@ -107,10 +107,10 @@ $(document).ready( function() {
         if($("#firing1").is(':checked') || $("#firing2").is(':checked')){
             firing="checked";
         }
-        var operateBusiness=$("#operateBusiness");
-        var experienceQualification=$("#experienceQualification");
-        var invest=$("#invest");
-        var liquid=$("#liquid");
+        var operateBusiness=$("#operateBusiness").val();
+        var experienceQualification=$("#experienceQualification").val();
+        var invest=$("#invest").val();
+        var liquid=$("#liquid").val();
         var fullTime="";
         if($("#fullTime1").is(':checked') || $("#fullTime2").is(':checked')){
             fullTime="checked";
@@ -123,11 +123,15 @@ $(document).ready( function() {
         var signature=$("signature").val();
         
         if(fname=="" || lname=="" || mobile=="" || altMobile=="" || email=="" || sNumber=="" || sName=="" || city=="" || residency=="" || country=="" || zip=="" || birth=="" || contracted=="" || veteran=="" || experience=="" || spouse=="" || experienceManagement=="" || firing=="" || operateBusiness=="" || experienceQualification=="" || invest=="" || liquid=="" || fullTime=="" || agree=="" || signature==""){
-            $("#msEmpty").css("display", "block");
+            $("#msgEmpty").css("display", "block");
             e.preventDefault();
             e.stopPropagation();
         }
+        else{
         
+            $("#msgEmpty").css("display", "none");
+        
+        }
         /*
         
         if(fname==""){

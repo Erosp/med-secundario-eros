@@ -62,7 +62,7 @@
 										<?php 
 										if(!empty($checkava))
 										{?>
-										<img width="60" height="60" src="<?php echo base_url(); ?>uploads/<?php echo!empty($comp->image) ? $comp->image : ''; ?>">
+										<img id="imgMuestra" width="60" height="60" src="<?php echo base_url(); ?>uploads/<?php echo!empty($comp->image) ? $comp->image : ''; ?>">
 										<?php }?>
 									</div>
 								</div>
@@ -86,7 +86,7 @@
 							<div class="creatUserBottom ">
 								<div class="">
 									<div class="vert-pad">
-										<button type="submit" name="save" class="btn-green"><?=!empty($checkava)?'Update':'Save';?>Changes</button>
+										<button type="submit" name="save" class="btn-green"><?=!empty($checkava)?'Update':'Save';?> Changes</button>
 									</div>          
 								</div>
 
@@ -117,6 +117,32 @@
 
 						$('#textarea_feedback').html(text_remaining + ' characters remaining');
 					}
+                    
+                    
+                    
+                    
+                  $('#create_taskimage').change(function(e) {
+                      addImage(e); 
+                     });
+
+                     function addImage(e){
+                      var file = e.target.files[0],
+                      imageType = /image.*/;
+
+                      if (!file.type.match(imageType))
+                       return;
+
+                      var reader = new FileReader();
+                      reader.onload = fileOnload;
+                      reader.readAsDataURL(file);
+                     }
+
+                     function fileOnload(e) {
+                      var result=e.target.result;
+                      $('#imgMuestra').attr("src",result);
+                     }
+                    
+                    
 				});
 				
 
