@@ -6,7 +6,7 @@
 			<div id="msg_success_ajax"></div>
 			<div class="panel panel-default">
                 <div class="panel-heading panel-heading-buttons clearfix title-bar-blue">
-					<h3 class="panel-title pull-left"><i class="fa fa-users"></i> Pending Verfication</h3>
+					<h3 class="panel-title pull-left"><i class="fa fa-users"></i> Pending Verification</h3>
 				</div>
                 <div class="panel-body">
 					<div class="table-responsive">    
@@ -16,7 +16,6 @@
 									<th>User Name</th>
 									<th>Contact #</th>
 									<th>User Email </th>
-									<th>User Type</th>
 									<th>Registered Since</th>
 									<th>Document Link</th>
 									<th>Status/action</th>                                        
@@ -28,15 +27,6 @@
 									<td><?php echo $val['display_name'];?></td>
 									<td><?php echo $val['mob_number'];?></td>
 									<td><?php echo $val['email'];?></td>
-									<td><?php
-										$user_type=$val['user_type'];
-										$usertype="admin";
-										if($user_type == "4")
-										{
-											$usertype="Salesteam";
-										}
-										echo $usertype;
-									?></td>
 									
 									<td><?php echo $val['created_at'];?></td>
 									<td>
