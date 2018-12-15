@@ -15,7 +15,7 @@
                                 <tr class="first-row">
 									<th>User Name</th>
 									<th>Contact #</th>
-									<th>User Email </th>
+									<th>User Email</th>
 									<th>Registered Since</th>
 									<th>Document Link</th>
 									<th>Status/action</th>                                        
